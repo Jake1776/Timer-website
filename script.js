@@ -1,7 +1,6 @@
 const timersContainer = document.getElementById("timersContainer");
 const newTimerBtn = document.getElementById("newTimerBtn");
 
-// Load existing timers from local storage on page load
 window.addEventListener("load", loadTimers);
 
 newTimerBtn.addEventListener("click", createTimer);
@@ -92,7 +91,6 @@ function createTimer(timerData) {
 
     deleteBtn.addEventListener("click", () => {
         timerBox.remove();
-        // Remove timer data from local storage when deleted
         removeTimerFromLocalStorage(timerBox);
     });
 
@@ -110,12 +108,9 @@ function createTimer(timerData) {
         timerName.focus();
     }, 10);
 
-    // Check if timerData is provided (for loading existing timers)
     if (timerData) {
-        // Populate timerBox with data from timerData
         timerName.textContent = timerData.name || "Case/CAD #";
         timerDisplay.textContent = timerData.display || "00:00:00.00";
-        // Additional setup based on your timerData
     }
 
     // Save the timer data to local storage
@@ -143,19 +138,15 @@ function makeDraggable(element) {
 }
 
 function saveTimerToLocalStorage(timerBox) {
-    // Generate a unique key for each timer based on its position
     const timerKey = `timer_${timersContainer.children.length}`;
 
-    // Save relevant timer data to local storage
     localStorage.setItem(timerKey, JSON.stringify({
         name: timerBox.querySelector(".timer-name").textContent,
         display: timerBox.querySelector(".timer-time").textContent,
-        // Add other timer properties as needed
     }));
 }
 
 function removeTimerFromLocalStorage(timerBox) {
-    // Loop through local storage keys and remove the matching timer data
     for (let i = 0; i < localStorage.length; i++) {
         const key = localStorage.key(i);
         if (key.startsWith("timer_")) {
@@ -171,7 +162,6 @@ function removeTimerFromLocalStorage(timerBox) {
 }
 
 function loadTimers() {
-    // Loop through local storage keys and load existing timers
     for (let i = 0; i < localStorage.length; i++) {
         const key = localStorage.key(i);
         if (key.startsWith("timer_")) {
@@ -179,6 +169,19 @@ function loadTimers() {
             createTimer(timerData);
         }
     }
+}
+
+function loadTimers() {
+    console.log("Loading existing timers from localStorage...");
+    for (let i = 0; i < localStorage.length; i++) {
+        const key = localStorage.key(i);
+        if (key.startsWith("timer_")) {
+            const timerData = JSON.parse(localStorage.getItem(key));
+            console.log("Loaded timer:", timerData);
+            createTimer(timerData);
+        }
+    }
+    console.log("Finished loading timers.");
 }
 
 let intervalId = null;
