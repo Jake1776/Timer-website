@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Time to Dollars Calculator</title>
+  <link rel="stylesheet" href="calculator-styles.css">
+</head>
+<body>
+
+<div id="calculator">
+  <div id="backButton" onclick="goBack()">
+    <span>&#x2190;</span>
+  </div>
+  
+  <label for="hourlyRate">Hourly Rate ($):</label>
+  <input type="number" id="hourlyRate" placeholder="Enter hourly rate" onkeypress="handleKeyPress(event, 'hoursWorked')">
+
+  <label for="hoursWorked">Hours Worked:</label>
+  <input type="number" id="hoursWorked" placeholder="Enter hours worked" onkeypress="handleKeyPress(event, 'calculateButton')">
+
+  <button onclick="calculateTotal()" id="calculateButton">Calculate Total</button>
+
+  <div id="result"></div>
+</div>
+
+<script src="calculator-script.js"></script>
+
+</body>
+</html>
